@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ interface Alarm {
   label: string;
   isActive: boolean;
   days: string[];
-  challengeType: 'math' | 'pattern' | 'sequence';
+  challengeType: 'math' | 'tictactoe' | 'memory';
 }
 
 interface AlarmCardProps {
@@ -25,8 +24,8 @@ const AlarmCard: React.FC<AlarmCardProps> = ({ alarm, onToggle, onDelete }) => {
   const getChallengeTypeLabel = (type: string) => {
     switch (type) {
       case 'math': return '🔢 Math';
-      case 'pattern': return '🎯 Pattern';
-      case 'sequence': return '🧩 Sequence';
+      case 'tictactoe': return '⭕ Tic Tac Toe';
+      case 'memory': return '🧠 Memory Game';
       default: return '🔢 Math';
     }
   };

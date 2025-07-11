@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -16,7 +15,7 @@ interface Alarm {
   label: string;
   isActive: boolean;
   days: string[];
-  challengeType: 'math' | 'pattern' | 'sequence';
+  challengeType: 'math' | 'tictactoe' | 'memory';
 }
 
 const Index = () => {
@@ -26,7 +25,7 @@ const Index = () => {
   const [newAlarm, setNewAlarm] = useState({
     time: '',
     label: '',
-    challengeType: 'math' as 'math' | 'pattern' | 'sequence'
+    challengeType: 'math' as 'math' | 'tictactoe' | 'memory'
   });
   const { toast } = useToast();
 
@@ -119,7 +118,7 @@ const Index = () => {
             </h1>
           </div>
           <p className="text-lg text-gray-600">
-            Wake up with purpose. Complete challenges to prove you're truly awake.
+            Wake up with purpose. Complete games to prove you're truly awake.
           </p>
         </div>
 
@@ -167,8 +166,8 @@ const Index = () => {
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   {[
                     { type: 'math', label: '🔢 Math' },
-                    { type: 'pattern', label: '🎯 Pattern' },
-                    { type: 'sequence', label: '🧩 Sequence' }
+                    { type: 'tictactoe', label: '⭕ Tic Tac Toe' },
+                    { type: 'memory', label: '🧠 Memory Game' }
                   ].map(({ type, label }) => (
                     <Button
                       key={type}
@@ -224,9 +223,9 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: '🧠',
-                title: 'Brain Activation',
-                description: 'Solve puzzles to prove you\'re mentally alert before dismissing the alarm.'
+                icon: '🎮',
+                title: 'Interactive Games',
+                description: 'Play engaging mini-games like Tic Tac Toe and Memory cards to prove you\'re awake.'
               },
               {
                 icon: '🔒',
@@ -236,7 +235,7 @@ const Index = () => {
               {
                 icon: '📈',
                 title: 'Progressive Difficulty',
-                description: 'Challenges get harder if you snooze, ensuring you wake up completely.'
+                description: 'Games get harder if you fail, ensuring you wake up completely.'
               }
             ].map((feature, index) => (
               <Card key={index} className="p-6 text-center hover:shadow-lg transition-shadow">

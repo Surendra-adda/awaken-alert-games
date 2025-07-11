@@ -1,19 +1,16 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Progress } from '@/components/ui/progress';
 import { AlertTriangle, Brain, Zap, CheckCircle } from 'lucide-react';
 import MathChallenge from '@/components/challenges/MathChallenge';
-import PatternChallenge from '@/components/challenges/PatternChallenge';
-import SequenceChallenge from '@/components/challenges/SequenceChallenge';
+import TicTacToeChallenge from '@/components/challenges/TicTacToeChallenge';
+import MemoryGameChallenge from '@/components/challenges/MemoryGameChallenge';
 
 interface Alarm {
   id: string;
   time: string;
   label: string;
-  challengeType: 'math' | 'pattern' | 'sequence';
+  challengeType: 'math' | 'tictactoe' | 'memory';
 }
 
 interface WakeUpChallengeProps {
@@ -61,17 +58,17 @@ const WakeUpChallenge: React.FC<WakeUpChallengeProps> = ({ alarm, onComplete }) 
             onFailure={handleChallengeFailure}
           />
         );
-      case 'pattern':
+      case 'tictactoe':
         return (
-          <PatternChallenge
+          <TicTacToeChallenge
             difficulty={difficulty}
             onSuccess={handleChallengeSuccess}
             onFailure={handleChallengeFailure}
           />
         );
-      case 'sequence':
+      case 'memory':
         return (
-          <SequenceChallenge
+          <MemoryGameChallenge
             difficulty={difficulty}
             onSuccess={handleChallengeSuccess}
             onFailure={handleChallengeFailure}
