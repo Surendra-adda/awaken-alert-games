@@ -25,9 +25,20 @@ const Index = () => {
   const [newAlarm, setNewAlarm] = useState({
     time: '',
     label: '',
-    challengeType: 'math' as 'math' | 'tictactoe' | 'memory'
+    challengeType: 'math' as 'math' | 'tictactoe' | 'memory',
+    days: [] as string[]
   });
   const { toast } = useToast();
+
+  const weekdays = [
+    { short: 'Mon', full: 'Monday' },
+    { short: 'Tue', full: 'Tuesday' },
+    { short: 'Wed', full: 'Wednesday' },
+    { short: 'Thu', full: 'Thursday' },
+    { short: 'Fri', full: 'Friday' },
+    { short: 'Sat', full: 'Saturday' },
+    { short: 'Sun', full: 'Sunday' }
+  ];
 
   // Simulate alarm trigger for demo
   useEffect(() => {
@@ -58,23 +69,41 @@ const Index = () => {
       return;
     }
 
+    if (newAlarm.days.length === 0) {
+      toast({
+        title: "Error",
+        description: "Please select at least one day",
+        variant: "destructive"
+      });
+      return;
+    }
+
     const alarm: Alarm = {
       id: Date.now().toString(),
       time: newAlarm.time,
       label: newAlarm.label || 'Wake up!',
       isActive: true,
-      days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      days: newAlarm.days,
       challengeType: newAlarm.challengeType
     };
 
     setAlarms([...alarms, alarm]);
     setShowAddAlarm(false);
-    setNewAlarm({ time: '', label: '', challengeType: 'math' });
+    setNewAlarm({ time: '', label: '', challengeType: 'math', days: [] });
     
     toast({
       title: "Alarm Created!",
       description: `Your smart alarm is set for ${newAlarm.time}`,
     });
+  };
+
+  const toggleDay = (day: string) => {
+    setNewAlarm(prev => ({
+      ...prev,
+      days: prev.days.includes(day) 
+        ? prev.days.filter(d => d !== day)
+        : [...prev.days, day]
+    }));
   };
 
   const toggleAlarm = (id: string) => {
@@ -159,6 +188,23 @@ const Index = () => {
                   onChange={(e) => setNewAlarm({...newAlarm, label: e.target.value})}
                   className="border-orange-200 focus:border-orange-500"
                 />
+              </div>
+
+              <div>
+                <Label>Days of the Week</Label>
+                <div className="grid grid-cols-7 gap-1 mt-2">
+                  {weekdays.map((day) => (
+                    <Button
+                      key={day.short}
+                      variant={newAlarm.days.includes(day.short) ? 'default' : 'outline'}
+                      onClick={() => toggleDay(day.short)}
+                      className="h-10 text-xs p-0"
+                      size="sm"
+                    >
+                      {day.short}
+                    </Button>
+                  ))}
+                </div>
               </div>
               
               <div>
