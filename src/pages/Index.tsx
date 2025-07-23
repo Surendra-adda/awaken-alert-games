@@ -15,7 +15,7 @@ interface Alarm {
   label: string;
   isActive: boolean;
   days: string[];
-  challengeType: 'math' | 'tictactoe' | 'memory';
+  challengeType: 'math' | 'tictactoe' | 'memory' | 'match' | 'shake';
 }
 
 const Index = () => {
@@ -25,7 +25,7 @@ const Index = () => {
   const [newAlarm, setNewAlarm] = useState({
     time: '',
     label: '',
-    challengeType: 'math' as 'math' | 'tictactoe' | 'memory',
+    challengeType: 'math' as 'math' | 'tictactoe' | 'memory' | 'match' | 'shake',
     days: [] as string[]
   });
   const { toast } = useToast();
@@ -213,7 +213,9 @@ const Index = () => {
                   {[
                     { type: 'math', label: '🔢 Math' },
                     { type: 'tictactoe', label: '⭕ Tic Tac Toe' },
-                    { type: 'memory', label: '🧠 Memory Game' }
+                    { type: 'memory', label: '🧠 Memory Game' },
+                    { type: 'match', label: '🎯 Match Objects' },
+                    { type: 'shake', label: '📱 Shake to Stop' }
                   ].map(({ type, label }) => (
                     <Button
                       key={type}

@@ -11,7 +11,7 @@ interface Alarm {
   label: string;
   isActive: boolean;
   days: string[];
-  challengeType: 'math' | 'tictactoe' | 'memory';
+  challengeType: 'math' | 'tictactoe' | 'memory' | 'match' | 'shake';
 }
 
 interface AlarmCardProps {
@@ -26,6 +26,8 @@ const AlarmCard: React.FC<AlarmCardProps> = ({ alarm, onToggle, onDelete }) => {
       case 'math': return '🔢 Math';
       case 'tictactoe': return '⭕ Tic Tac Toe';
       case 'memory': return '🧠 Memory Game';
+      case 'match': return '🎯 Match Objects';
+      case 'shake': return '📱 Shake to Stop';
       default: return '🔢 Math';
     }
   };

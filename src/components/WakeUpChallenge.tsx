@@ -5,12 +5,14 @@ import { AlertTriangle, Brain, Zap, CheckCircle } from 'lucide-react';
 import MathChallenge from '@/components/challenges/MathChallenge';
 import TicTacToeChallenge from '@/components/challenges/TicTacToeChallenge';
 import MemoryGameChallenge from '@/components/challenges/MemoryGameChallenge';
+import MatchObjectsChallenge from '@/components/challenges/MatchObjectsChallenge';
+import ShakeToStopChallenge from '@/components/challenges/ShakeToStopChallenge';
 
 interface Alarm {
   id: string;
   time: string;
   label: string;
-  challengeType: 'math' | 'tictactoe' | 'memory';
+  challengeType: 'math' | 'tictactoe' | 'memory' | 'match' | 'shake';
 }
 
 interface WakeUpChallengeProps {
@@ -69,6 +71,22 @@ const WakeUpChallenge: React.FC<WakeUpChallengeProps> = ({ alarm, onComplete }) 
       case 'memory':
         return (
           <MemoryGameChallenge
+            difficulty={difficulty}
+            onSuccess={handleChallengeSuccess}
+            onFailure={handleChallengeFailure}
+          />
+        );
+      case 'match':
+        return (
+          <MatchObjectsChallenge
+            difficulty={difficulty}
+            onSuccess={handleChallengeSuccess}
+            onFailure={handleChallengeFailure}
+          />
+        );
+      case 'shake':
+        return (
+          <ShakeToStopChallenge
             difficulty={difficulty}
             onSuccess={handleChallengeSuccess}
             onFailure={handleChallengeFailure}
