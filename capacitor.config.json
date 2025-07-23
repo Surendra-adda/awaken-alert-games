@@ -1,0 +1,14 @@
+{
+  "appId": "app.lovable.f6890a05a4c946b896e9f15eb4826b61",
+  "appName": "awaken-alert-games",
+  "webDir": "dist",
+  "server": {
+    "url": "https://f6890a05-a4c9-46b8-96e9-f15eb4826b61.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  },
+  "plugins": {
+    "Haptics": {
+      "enabled": true
+    }
+  }
+}

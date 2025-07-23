@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import AlarmSoundPlayer from '@/components/AlarmSoundPlayer';
 import { AlertTriangle, Brain, Zap, CheckCircle } from 'lucide-react';
 import MathChallenge from '@/components/challenges/MathChallenge';
 import TicTacToeChallenge from '@/components/challenges/TicTacToeChallenge';
@@ -13,6 +14,7 @@ interface Alarm {
   time: string;
   label: string;
   challengeType: 'math' | 'tictactoe' | 'memory' | 'match' | 'shake';
+  soundId: string;
 }
 
 interface WakeUpChallengeProps {
@@ -112,6 +114,13 @@ const WakeUpChallenge: React.FC<WakeUpChallengeProps> = ({ alarm, onComplete }) 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-500 via-orange-500 to-yellow-500 flex items-center justify-center p-4 animate-pulse">
+      {/* Alarm Sound Player */}
+      <AlarmSoundPlayer 
+        soundId={alarm.soundId || 'classic'}
+        isPlaying={!isCompleted}
+        volume={0.8}
+      />
+      
       <div className="max-w-lg w-full">
         {/* Alert Header */}
         <Card className="p-6 mb-6 border-4 border-red-400 bg-red-50 animate-bounce">

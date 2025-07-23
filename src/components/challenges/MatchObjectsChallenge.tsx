@@ -24,23 +24,34 @@ const MatchObjectsChallenge: React.FC<MatchObjectsChallengeProps> = ({ difficult
   const [timeLeft, setTimeLeft] = useState(90);
   const [gameStarted, setGameStarted] = useState(false);
 
-  const categories = {
-    'Fruits': ['🍎 Apple', '🍌 Banana', '🍊 Orange', '🍇 Grapes'],
-    'Animals': ['🐱 Cat', '🐶 Dog', '🐰 Rabbit', '🐻 Bear'],
-    'Sports': ['⚽ Soccer', '🏀 Basketball', '🎾 Tennis', '🏈 Football'],
-    'Vehicles': ['🚗 Car', '🚲 Bike', '✈️ Plane', '🚢 Ship']
+  const allCategories = {
+    'Fruits': ['🍎 Apple', '🍌 Banana', '🍊 Orange', '🍇 Grapes', '🍓 Strawberry', '🥝 Kiwi', '🍑 Cherry', '🥭 Mango'],
+    'Animals': ['🐱 Cat', '🐶 Dog', '🐰 Rabbit', '🐻 Bear', '🦁 Lion', '🐯 Tiger', '🐼 Panda', '🐨 Koala'],
+    'Sports': ['⚽ Soccer', '🏀 Basketball', '🎾 Tennis', '🏈 Football', '🏐 Volleyball', '🏓 Ping Pong', '🏸 Badminton', '🏒 Hockey'],
+    'Vehicles': ['🚗 Car', '🚲 Bike', '✈️ Plane', '🚢 Ship', '🚌 Bus', '🚂 Train', '🏍️ Motorcycle', '🚁 Helicopter'],
+    'Food': ['🍕 Pizza', '🍔 Burger', '🌮 Taco', '🍜 Noodles', '🍣 Sushi', '🥗 Salad', '🍝 Pasta', '🥪 Sandwich'],
+    'Objects': ['📱 Phone', '💻 Laptop', '⌚ Watch', '🎧 Headphones', '📚 Book', '✏️ Pencil', '🔑 Key', '💡 Bulb'],
+    'Nature': ['🌳 Tree', '🌸 Flower', '🍄 Mushroom', '🌊 Wave', '⛰️ Mountain', '🌙 Moon', '⭐ Star', '☀️ Sun']
   };
 
   const initializeGame = () => {
     const categoryCount = difficulty === 1 ? 2 : difficulty === 2 ? 3 : 4;
     const itemsPerCategory = difficulty === 1 ? 3 : difficulty === 2 ? 3 : 4;
     
-    const selectedCategories = Object.keys(categories).slice(0, categoryCount);
+    // Randomly select categories for this game
+    const availableCategories = Object.keys(allCategories);
+    const shuffledCategories = availableCategories.sort(() => Math.random() - 0.5);
+    const selectedCategories = shuffledCategories.slice(0, categoryCount);
+    
     const gameItems: MatchItem[] = [];
     
     selectedCategories.forEach((category, catIndex) => {
-      const categoryItems = categories[category as keyof typeof categories].slice(0, itemsPerCategory);
-      categoryItems.forEach((item, itemIndex) => {
+      const categoryItems = allCategories[category as keyof typeof allCategories];
+      // Randomly select items from this category
+      const shuffledItems = categoryItems.sort(() => Math.random() - 0.5);
+      const selectedItems = shuffledItems.slice(0, itemsPerCategory);
+      
+      selectedItems.forEach((item, itemIndex) => {
         const [emoji, name] = item.split(' ');
         gameItems.push({
           id: catIndex * 10 + itemIndex,

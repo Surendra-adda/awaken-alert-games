@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import AlarmSoundSettings from '@/components/AlarmSoundSettings';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Clock, Plus, Settings, Moon } from 'lucide-react';
@@ -16,6 +17,7 @@ interface Alarm {
   isActive: boolean;
   days: string[];
   challengeType: 'math' | 'tictactoe' | 'memory' | 'match' | 'shake';
+  soundId: string;
 }
 
 const Index = () => {
@@ -26,7 +28,8 @@ const Index = () => {
     time: '',
     label: '',
     challengeType: 'math' as 'math' | 'tictactoe' | 'memory' | 'match' | 'shake',
-    days: [] as string[]
+    days: [] as string[],
+    soundId: 'classic'
   });
   const { toast } = useToast();
 
@@ -84,12 +87,13 @@ const Index = () => {
       label: newAlarm.label || 'Wake up!',
       isActive: true,
       days: newAlarm.days,
-      challengeType: newAlarm.challengeType
+      challengeType: newAlarm.challengeType,
+      soundId: newAlarm.soundId
     };
 
     setAlarms([...alarms, alarm]);
     setShowAddAlarm(false);
-    setNewAlarm({ time: '', label: '', challengeType: 'math', days: [] });
+    setNewAlarm({ time: '', label: '', challengeType: 'math', days: [], soundId: 'classic' });
     
     toast({
       title: "Alarm Created!",
@@ -228,6 +232,11 @@ const Index = () => {
                   ))}
                 </div>
               </div>
+
+              <AlarmSoundSettings 
+                selectedSound={newAlarm.soundId}
+                onSoundChange={(soundId) => setNewAlarm({...newAlarm, soundId})}
+              />
             </div>
             
             <div className="flex gap-2 mt-6">
